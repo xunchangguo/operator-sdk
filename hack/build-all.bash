@@ -23,7 +23,7 @@ if [[ "$(pwd)" != "${DEP_ROOT}" ]]; then
   exit 1
 fi
 
-GO_BUILD_CMD="go build -a ./commands/operator-sdk"
+GO_BUILD_CMD="go build -a"
 GO_BUILD_LDFLAGS="-s -w -X main.commitHash=${COMMIT_HASH} -X main.buildDate=${DATE} -X main.version=${VERSION} -X main.flagImportDuringSolve=${IMPORT_DURING_SOLVE}"
 
 if [[ -z "${DEP_BUILD_PLATFORMS}" ]]; then
@@ -47,7 +47,7 @@ for OS in ${DEP_BUILD_PLATFORMS[@]}; do
 
     echo "Building for ${OS}/${ARCH} with CGO_ENABLED=${CGO_ENABLED}"
     GOARCH=${ARCH} GOOS=${OS} CGO_ENABLED=${CGO_ENABLED} ${GO_BUILD_CMD} -ldflags "${GO_BUILD_LDFLAGS}"\
-     -o "${DEP_ROOT}/release/${NAME}" .
+     -o "${DEP_ROOT}/release/${NAME}" ./commands/operator-sdk
     shasum -a 256 "${DEP_ROOT}/release/${NAME}" > "${DEP_ROOT}/release/${NAME}".sha256
   done
 done
