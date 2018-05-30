@@ -51,8 +51,13 @@ for OS in ${DEP_BUILD_PLATFORMS[@]}; do
     shasum -a 256 "${DEP_ROOT}/release/${NAME}" > "${DEP_ROOT}/release/${NAME}".sha256
   done
 done
+
+opsdk="${DEP_ROOT}/release/operator-sdk-linux-amd64"
+chmod +x ${opsdk}
+mkdir -p $HOME/gopath/src/github.com/xunchangguo
+cd $HOME/gopath/src/github.com/xunchangguo
+
+${opsdk} new kong-operator --api-version=c2cloud/v1alpha1 --kind=kong
 cd "${DEP_ROOT}/release/"
-chmod +x operator-sdk-linux-amd64
-./operator-sdk-linux-amd64 new kong-operator --api-version=c2cloud/v1alpha1 --kind=kong
-tar -jcvf kong-operator.tar.bz2 kong-operator/
+tar -jcvf kong-operator.tar.bz2 $HOME/gopath/src/github.com/xunchangguo/kong-operator/
 rm -rf kong-operator/
