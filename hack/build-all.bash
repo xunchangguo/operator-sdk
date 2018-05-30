@@ -57,7 +57,7 @@ chmod +x ${opsdk}
 mkdir -p $HOME/gopath/src/github.com/xunchangguo
 cd $HOME/gopath/src/github.com/xunchangguo
 
-${opsdk} new kong-operator --api-version=c2cloud/v1alpha1 --kind=kong
+${opsdk} new kong-operator --api-version=c2cloud/v1alpha1 --kind=Kong
 cd "${DEP_ROOT}/release/"
 tar -jcvf kong-operator.tar.bz2 $HOME/gopath/src/github.com/xunchangguo/kong-operator/
 rm -rf kong-operator/
